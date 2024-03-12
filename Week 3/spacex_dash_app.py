@@ -86,7 +86,9 @@ def update_chart_pie(sites_sel):
 def update_chart_scatter(sites_sel, payload_val):
     payload_low, payload_high = payload_val
     if sites_sel == 'ALL':
-        fig = px.scatter(spacex_df, x='Payload Mass (kg)', y='class', color='Booster Version Category')
+        modified_df = spacex_df
+        modified_df = modified_df[(modified_df['Payload Mass (kg)'] > payload_low) & (modified_df['Payload Mass (kg)'] < payload_high)]
+        fig = px.scatter(modified_df, x='Payload Mass (kg)', y='class', color='Booster Version Category')
         fig.update_layout(title="Payload Mass and the Outcome from All Launch Sites")
         return fig
     else: 
